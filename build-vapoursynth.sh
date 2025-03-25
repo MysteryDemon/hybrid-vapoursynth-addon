@@ -4,8 +4,7 @@ set -e
 s_begin=$( date "+%s")
 
 # Create and activate virtual environment
-python3 -m venv venv
-source venv/bin/activate
+rm -rf venv
 
 . ./config.txt
 
@@ -240,7 +239,3 @@ echo "SystemPluginDir=$VSPREFIX/vsplugins" > "$conf"
 s_end=$( date "+%s")
 s=$(($s_end - $s_begin))
 printf "\nFinished after %d min %d sec\n" $(($s / 60)) $(($s % 60))
-
-# Deactivate and clean up virtual environment
-deactivate
-rm -rf venv
