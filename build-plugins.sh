@@ -15,7 +15,7 @@ if [ ! -e "$my_pkg_config_path/vapoursynth.pc" -a\
 fi
 
 # gcc++-11 is required for rife
-#sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 #if [ ! -e $stamp -x "/usr/bin/apt" ]; then
   sudo apt update
