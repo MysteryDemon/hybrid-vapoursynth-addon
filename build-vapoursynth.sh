@@ -10,8 +10,8 @@ export CXXFLAGS="$CFLAGS"
 
 #if [ ! -e $stamp -a -x "/usr/bin/apt" ]; then
   sudo apt update
-  sudo apt upgrade
-  sudo apt install --no-install-recommends \
+  sudo apt upgrade -y
+  sudo apt install -y --no-install-recommends \
     build-essential \
     git \
     python3-pip \
