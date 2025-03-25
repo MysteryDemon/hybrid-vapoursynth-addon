@@ -3,15 +3,18 @@
 set -e
 s_begin=$( date "+%s")
 
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
 . ./config.txt
 
 export CFLAGS="-pipe -O3 -fno-strict-aliasing -Wno-deprecated-declarations"
 export CXXFLAGS="$CFLAGS"
 
-#if [ ! -e $stamp -a -x "/usr/bin/apt" ]; then
-  sudo apt update
-  sudo apt upgrade -y
-  sudo apt install -y --no-install-recommends \
+sudo apt update
+sudo apt upgrade
+sudo apt install --no-install-recommends \
     build-essential \
     git \
     python3-pip \
@@ -40,11 +43,9 @@ export CXXFLAGS="$CFLAGS"
     lib$python3dotx \
     lib$python3dotx-dev \
     cython3
-  #touch $stamp
-#fi
 
 TOP="$PWD"
-  
+
 rm -rf build
 mkdir build
 cd build
@@ -65,17 +66,12 @@ fi
 
 max_attempts=3
 
-
 retry_git_clone() {
-
   local repo_url="$1"
   local target_dir="$2"
   local attempts=0
 
-
-
   while true; do
-
     if [ "$attempts" -ge "$max_attempts" ]; then
       echo "Maximum number of clone attempts reached. Exiting."
       exit 1
@@ -170,7 +166,6 @@ if [ ! -x "$VSPREFIX/bin/vspipe" ]; then
 
   retry_git_clone https://github.com/vapoursynth/vapoursynth
   cd vapoursynth
-  #git checkout $(git tag | grep '^R' | sort -V | tail -1)
   autoreconf -if
   ./configure --prefix="$VSPREFIX" --disable-static 
   make -j$JOBS
@@ -237,7 +232,6 @@ else if ( \`echo "\$PYTHONPATH" | grep -Ec "(^|:)\${vs_site_packages}(:|"'$'")"\
 endif
 EOF
 
-# http://www.vapoursynth.com/doc/autoloading.html#linux
 conf="$HOME/.config/vapoursynth/vapoursynth.conf"
 echo "Create \`$conf'"
 mkdir -p "$HOME/.config/vapoursynth"
@@ -246,3 +240,7 @@ echo "SystemPluginDir=$VSPREFIX/vsplugins" > "$conf"
 s_end=$( date "+%s")
 s=$(($s_end - $s_begin))
 printf "\nFinished after %d min %d sec\n" $(($s / 60)) $(($s % 60))
+
+# Deactivate and clean up virtual environment
+deactivate
+rm -rf venv
