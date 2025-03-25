@@ -19,8 +19,8 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 #if [ ! -e $stamp -x "/usr/bin/apt" ]; then
   sudo apt update
-  sudo apt upgrade
-  sudo apt install --no-install-recommends \
+  sudo apt upgrade -y
+  sudo apt install -y --no-install-recommends \
     build-essential \
     cmake \
     yasm \
