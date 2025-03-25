@@ -19,6 +19,7 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 #if [ ! -e $stamp -x "/usr/bin/apt" ]; then
   sudo apt update
+  sudo add-apt-repository universe
   sudo apt upgrade -y
   sudo apt install -y --no-install-recommends \
     build-essential \
