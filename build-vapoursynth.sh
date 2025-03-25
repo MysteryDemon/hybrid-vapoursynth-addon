@@ -157,6 +157,8 @@ if [ ! -f "$my_pkg_config_path/libavcodec.pc" ]; then
   rm -rf FFmpeg
 fi
 
+rm /usr/lib/python3.10/EXTERNALLY-MANAGED
+
 # VapourSynth, with an temp up-to-date cython install for security
 if [ ! -x "$VSPREFIX/bin/vspipe" ]; then
   old_pythonuserbase="$PYTHONUSERBASE"
