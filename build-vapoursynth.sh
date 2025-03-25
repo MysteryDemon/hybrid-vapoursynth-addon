@@ -12,8 +12,8 @@ export CFLAGS="-pipe -O3 -fno-strict-aliasing -Wno-deprecated-declarations"
 export CXXFLAGS="$CFLAGS"
 
 sudo apt update
-sudo apt upgrade
-sudo apt install --no-install-recommends \
+sudo apt upgrade -y
+sudo apt install -y --no-install-recommends \
     build-essential \
     git \
     python3-pip \
